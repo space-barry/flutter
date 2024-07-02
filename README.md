@@ -1,4 +1,6 @@
-# flutter_application_1
+# (Hadith Fiah Salah)flutter_application_1
+
+## This is an app which will tell you how to day the salah, according to your fiqh with refrencing hadiths. still in progress. feel free to update it. 
 
 A new Flutter project.
 
