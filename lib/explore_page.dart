@@ -547,6 +547,355 @@
 //   }
 // }
 
+// import 'package:flutter/material.dart';
+// import 'package:url_launcher/url_launcher.dart'; // For opening the browserq
+// import 'main_page.dart'; // Import the main page for navigation
+// import 'prayer_page.dart'; // Placeholder for the details navigation
+
+// class ExplorePage extends StatefulWidget {
+//   @override
+//   _ExplorePageState createState() => _ExplorePageState();
+// }
+
+// class _ExplorePageState extends State<ExplorePage> {
+//   String selectedSchool = 'hanafi'; // Default selected school of thought
+//   bool isTimingExpanded = false;
+//   bool isComponentExpanded = false;
+
+//   void _showFiqhOptions() {
+//     showModalBottomSheet(
+//       context: context,
+//       builder: (BuildContext context) {
+//         return Container(
+//           color: Colors.black,
+//           child: Wrap(
+//             children: <Widget>[
+//               ListTile(
+//                 title: Text('Hanafi', style: TextStyle(color: Colors.white)),
+//                 onTap: () {
+//                   setState(() {
+//                     selectedSchool = 'hanafi';
+//                   });
+//                   Navigator.pop(context);
+//                 },
+//               ),
+//               ListTile(
+//                 title: Text('Shafi', style: TextStyle(color: Colors.white)),
+//                 onTap: () {
+//                   setState(() {
+//                     selectedSchool = 'shafi';
+//                   });
+//                   Navigator.pop(context);
+//                 },
+//               ),
+//               ListTile(
+//                 title: Text('Maliki', style: TextStyle(color: Colors.white)),
+//                 onTap: () {
+//                   setState(() {
+//                     selectedSchool = 'maliki';
+//                   });
+//                   Navigator.pop(context);
+//                 },
+//               ),
+//               ListTile(
+//                 title: Text('Hanbali', style: TextStyle(color: Colors.white)),
+//                 onTap: () {
+//                   setState(() {
+//                     selectedSchool = 'hanbali';
+//                   });
+//                   Navigator.pop(context);
+//                 },
+//               ),
+//             ],
+//           ),
+//         );
+//       },
+//     );
+//   }
+
+//   void _toggleExpandAll() {
+//     setState(() {
+//       isTimingExpanded = !isTimingExpanded;
+//       isComponentExpanded = !isComponentExpanded;
+//     });
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       backgroundColor: Colors.black,
+//       body: Padding(
+//         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 40.0),
+//         child: Column(
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//             // Back arrow button
+//             IconButton(
+//               icon: Icon(Icons.arrow_back, color: Colors.white),
+//               onPressed: () {
+//                 Navigator.pushReplacement(
+//                   context,
+//                   MaterialPageRoute(builder: (context) => MainPage()),
+//                 );
+//               },
+//             ),
+//             SizedBox(height: 20),
+//             // Text for school of thought
+//             Text(
+//               'According to',
+//               style: TextStyle(
+//                 fontSize: 16,
+//                 color: Colors.white,
+//               ),
+//             ),
+//             Text(
+//               '$selectedSchool',
+//               style: TextStyle(
+//                 fontSize: 28,
+//                 color: Colors.white,
+//                 fontWeight: FontWeight.bold,
+//               ),
+//             ),
+//             Text(
+//               'school of thought',
+//               style: TextStyle(
+//                 fontSize: 16,
+//                 color: Colors.white,
+//               ),
+//             ),
+//             SizedBox(height: 20),
+//             // Fiqh button
+//             Align(
+//               alignment: Alignment.topRight,
+//               child: GestureDetector(
+//                 onTap: _showFiqhOptions,
+//                 child: Container(
+//                   decoration: BoxDecoration(
+//                     shape: BoxShape.circle,
+//                     border: Border.all(color: Colors.white, width: 2),
+//                   ),
+//                   padding: EdgeInsets.all(20),
+//                   child: Text(
+//                     'Fiqh',
+//                     style: TextStyle(
+//                       fontSize: 18,
+//                       color: Colors.white,
+//                       fontWeight: FontWeight.bold,
+//                     ),
+//                   ),
+//                 ),
+//               ),
+//             ),
+//             SizedBox(height: 20),
+//             // Salah/Prayer title
+//             Container(
+//               decoration: BoxDecoration(
+//                 border: Border.all(color: Colors.white),
+//               ),
+//               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+//               child: Text(
+//                 'fajr/dawn',
+//                 style: TextStyle(
+//                   fontSize: 16,
+//                   color: Colors.white,
+//                 ),
+//               ),
+//             ),
+//             SizedBox(height: 20),
+//             // Timing expandable button
+//             _buildExpandableButton(
+//               'timing',
+//               isTimingExpanded,
+//               () {
+//                 setState(() {
+//                   isTimingExpanded = !isTimingExpanded;
+//                 });
+//               },
+//               isTimingExpanded
+//                   ? Column(
+//                       children: [
+//                         SizedBox(height: 10),
+//                         Text(
+//                           'This is the line',
+//                           style: TextStyle(color: Colors.white),
+//                         ),
+//                         SizedBox(height: 10),
+//                       ],
+//                     )
+//                   : Container(),
+//             ),
+//             SizedBox(height: 10),
+//             // Component expandable button
+//             _buildExpandableButton(
+//               'component',
+//               isComponentExpanded,
+//               () {
+//                 setState(() {
+//                   isComponentExpanded = !isComponentExpanded;
+//                 });
+//               },
+//               isComponentExpanded
+//                   ? Column(
+//                       children: [
+//                         _buildComponentDetail(
+//                             'Total number of rak’at/units:', '4'),
+//                         _buildComponentDetailRow('farz/obligatory', '2'),
+//                         _buildComponentDetailRow(
+//                             'sunnah/traditional practise', '2'),
+//                       ],
+//                     )
+//                   : Container(),
+//             ),
+//             Spacer(),
+//             // Expand All button
+//             Align(
+//               alignment: Alignment.center,
+//               child: GestureDetector(
+//                 onTap: _toggleExpandAll,
+//                 child: Row(
+//                   mainAxisSize: MainAxisSize.min,
+//                   children: [
+//                     Text(
+//                       isTimingExpanded && isComponentExpanded
+//                           ? 'Collapse all'
+//                           : 'Expand all',
+//                       style: TextStyle(
+//                         fontSize: 14,
+//                         color: Colors.white,
+//                         decoration: TextDecoration.underline,
+//                       ),
+//                     ),
+//                     Icon(
+//                       isTimingExpanded && isComponentExpanded
+//                           ? Icons.keyboard_arrow_up
+//                           : Icons.keyboard_arrow_down,
+//                       color: Colors.white,
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+
+//   // Function to create expandable buttons
+//   Widget _buildExpandableButton(String title, bool isExpanded,
+//       VoidCallback onTap, Widget expandedContent) {
+//     return Container(
+//       decoration: BoxDecoration(
+//         border: Border.all(color: Colors.white),
+//       ),
+//       child: Column(
+//         children: [
+//           ListTile(
+//             title: Text(
+//               title,
+//               style: TextStyle(color: Colors.white),
+//             ),
+//             trailing: Row(
+//               mainAxisSize: MainAxisSize.min,
+//               children: [
+//                 GestureDetector(
+//                   onTap: () {
+//                     // Navigate to the prayer page
+//                     Navigator.push(
+//                       context,
+//                       MaterialPageRoute(
+//                           builder: (context) =>
+//                               PrayerPage()), // Navigate to a placeholder page
+//                     );
+//                   },
+//                   child: Text(
+//                     'details',
+//                     style: TextStyle(color: Colors.green),
+//                   ),
+//                 ),
+//                 SizedBox(width: 10),
+//                 Icon(
+//                   isExpanded ? Icons.expand_less : Icons.expand_more,
+//                   color: Colors.white,
+//                 ),
+//               ],
+//             ),
+//             onTap: onTap,
+//           ),
+//           if (isExpanded) expandedContent,
+//         ],
+//       ),
+//     );
+//   }
+
+//   // Function to create component detail rows
+//   Widget _buildComponentDetail(String label, String value) {
+//     return Padding(
+//       padding: const EdgeInsets.all(10.0),
+//       child: Row(
+//         children: [
+//           Text(
+//             label,
+//             style: TextStyle(color: Colors.white),
+//           ),
+//           Spacer(),
+//           Text(
+//             value,
+//             style: TextStyle(color: Colors.white),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+
+//   // Function to create rows for components with details
+//   Widget _buildComponentDetailRow(String label, String value) {
+//     return Padding(
+//       padding: const EdgeInsets.all(10.0),
+//       child: Row(
+//         children: [
+//           Expanded(
+//             child: Container(
+//               decoration: BoxDecoration(
+//                 border: Border.all(color: Colors.white),
+//               ),
+//               padding: EdgeInsets.symmetric(vertical: 10),
+//               child: Center(
+//                 child: Text(
+//                   label,
+//                   style: TextStyle(color: Colors.white),
+//                 ),
+//               ),
+//             ),
+//           ),
+//           SizedBox(width: 10),
+//           GestureDetector(
+//             onTap: () {
+//               // Navigate to the prayer page
+//               Navigator.push(
+//                 context,
+//                 MaterialPageRoute(
+//                     builder: (context) =>
+//                         PrayerPage()), // Navigate to a placeholder page
+//               );
+//             },
+//             child: Row(
+//               children: [
+//                 Text(
+//                   value,
+//                   style: TextStyle(color: Colors.white),
+//                 ),
+//                 SizedBox(width: 5),
+//                 Icon(Icons.arrow_forward, color: Colors.green),
+//               ],
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
+
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart'; // For opening the browser
 import 'main_page.dart'; // Import the main page for navigation
@@ -800,12 +1149,13 @@ class _ExplorePageState extends State<ExplorePage> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    // Navigate to the prayer page
+                    // Navigate to the prayer page with the selected school
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              PrayerPage()), // Navigate to a placeholder page
+                        builder: (context) =>
+                            PrayerPage(selectedSchool: selectedSchool),
+                      ),
                     );
                   },
                   child: Text(
@@ -871,12 +1221,13 @@ class _ExplorePageState extends State<ExplorePage> {
           SizedBox(width: 10),
           GestureDetector(
             onTap: () {
-              // Navigate to the prayer page
+              // Navigate to the prayer page with the selected school
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) =>
-                        PrayerPage()), // Navigate to a placeholder page
+                  builder: (context) =>
+                      PrayerPage(selectedSchool: selectedSchool),
+                ),
               );
             },
             child: Row(
